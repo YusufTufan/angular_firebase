@@ -1,0 +1,98 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="alert alert-danger" >Bu Bölüme Girmeye Yetkiniz Yoktur!</div>
+    </div>
+  </div>
+  <div class="row" >
+    <div class="col-8">
+      <h3>Üyeler</h3>
+      <button class="btn btn-outline-success" (click)="Ekle(modalEkleDuzenle)">Uye Ekle</button>
+      <table class="table table-hover mt-3">
+        <thead>
+          <th>Id</th>
+          <th>Adı Soyadı</th>
+          <th>E-Posta</th>
+          <th>Yönetici mi</th>
+          <th>Kayıt Tarihi</th>
+          <th>Düzenleme Tarihi</th>
+          <th>Düzenle</th>
+          <th>Sil</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let uye of uyeler">
+            <td>{{uye.uid}}</td>
+            <td>{{uye.adsoyad}}</td>
+            <td>{{uye.email}}</td>
+            <td>
+              <span  class="badge bg-success">Evet</span>
+              <span  class="badge bg-danger">Hayır</span>
+            </td>
+            <td>{{uye.kaytarih | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td>{{uye.duztarih | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td><button class="btn btn-outline-warning" (click)="Duzenle(uye,modalEkleDuzenle)">Düzenle</button></td>
+            <td><button class="btn btn-outline-danger" (click)="Sil(uye,modalSil)">Sil</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" #modalEkleDuzenle>
+  <div class="modal-dialog">
+    <form [formGroup]="frm" (ngSubmit)="UyeEkleDuzenle()">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">{{modalBaslik}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label>Üye Adı Soyadı</label>
+            <input type="text" class="form-control" formControlName="adsoyad">
+            <label>Üye e-Posta</label>
+            <input type="text" class="form-control" formControlName="mail">
+            <label>Parola</label>
+            <input type="text" class="form-control" formControlName="parola">
+            <label>Yönetici misin?</label>
+            <select class="form-control" formControlName="admin">
+              <option value="1">Evet</option>
+              <option value="0">Hayır</option>
+            </select>
+            <input type="hidden" class="form-control" formControlName="id">
+            <input type="hidden" class="form-control" formControlName="kaytarih">
+            <input type="hidden" class="form-control" formControlName="duztarih">
+
+          </div>
+
+        </div>
+        <div class="modal-footer">
+
+          <input type="submit" class="btn btn-outline-primary" value="Kaydet">
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal" tabindex="-1" #modalSil>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title">{{modalBaslik}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6 *ngIf="secUye">{{secUye.adsoyad}} adlı üye silinecektir. Onaylıyor musunuz?</h6>
+      </div>
+      <div class="modal-footer">
+
+        <button class="btn btn-outline-danger" *ngIf="secUye" (click)="UyeSil()">Sil</button>
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Kapat</button>
+      </div>
+    </div>
+
+  </div>
+</div>

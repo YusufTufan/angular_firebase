@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "angular-1-30ae7": {
+      "hosting": {
+        "intprojem": [
+          "angular-1-30ae7"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "angular-1-30ae7"
+  }
+}

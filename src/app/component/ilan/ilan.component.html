@@ -1,0 +1,95 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-8">
+      <h3>İlanlar</h3>
+
+      <select class="form-control" [(ngModel)]="katId" (ngModelChange)="KatSec($event)">
+        <option [value]="kat.katId" *ngFor="let kat of kategoriler">{{kat.katadi}}</option>
+      </select>
+
+      <button class="btn btn-outline-primary mt-3" (click)="Ekle(modal2EkleDuzenle)"
+        >İlan Ekle</button>
+      <p >
+        Seçili Kategori : <b>{{secKat.katadi}}</b>
+      </p>
+      <table class="table table-hover mt-3">
+        <thead>
+          <th>Id</th>
+          <th>İlan Adı</th>
+          <th>Kayıt Tarihi</th>
+          <th>Düzenleme Tarihi</th>
+          <th>Düzenle</th>
+          <th>Sil</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ilan of ilanlar">
+            <td>{{ilan.ilanid}}</td>
+            <td>{{ilan.ilanadi}}</td>
+            <td>{{ilan.kaytarih | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td>{{ilan.duztarih | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td><button class="btn btn-outline-warning" (click)="Duzenle(ilan,modal2EkleDuzenle)"
+                >Düzenle</button></td>
+            <td><button class="btn btn-outline-danger" (click)="Sil(ilan,modalSil)"
+                >Sil</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div> 
+  </div>
+</div>
+ 
+<div class="modal" tabindex="-1" #modal2EkleDuzenle>
+  <div class="modal-dialog">
+    <form [formGroup]="frm" (ngSubmit)="IlanEkleDuzenle()">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">{{modalBaslik}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>İlan Adı</label>
+            <input type="text" class="form-control" formControlName="ilanadi">
+            <label>İlan Fiyatı</label>
+            <input type="text" class="form-control" formControlName="ilanfiyat">
+            <label>İlan Resmi</label>
+            <input type="text" class="form-control" formControlName="ilanresmi">
+            <label>Kategori</label>
+            <select class="form-control" formControlName="categoryId">
+              <option [value]="kat.katId" *ngFor="let kat of kategoriler">{{kat.katadi}}</option>
+            </select>
+            <input type="hidden" class="form-control" formControlName="id">
+            <input type="hidden" class="form-control" formControlName="kaytarih">
+            <input type="hidden" class="form-control" formControlName="duztarih">
+
+          </div>
+
+        </div>
+        <div class="modal-footer">
+
+          <input type="submit" class="btn btn-outline-primary" value="Kaydet">
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal" tabindex="-1" #modalSil>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title">{{modalBaslik}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6 *ngIf="secIlan">{{secIlan.ilanadi}} adlı İlan Silinecektir Onaylıyor musunuz?</h6>
+      </div>
+      <div class="modal-footer">
+
+        <button class="btn btn-outline-danger" *ngIf="secIlan" (click)="ilanSil()">Sil</button>
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Kapat</button>
+      </div>
+    </div>
+
+  </div>
+</div>

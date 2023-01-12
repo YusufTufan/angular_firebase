@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg bg-primary navbar-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">TUFAN EMLAK</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Ana Sayfa</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="Görevler">Görevler</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="ilanlar">İlanlar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="Kategoriler">Kategoriler</a>
+        </li>
+
+
+
+      </ul>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="uye | async as user else loginButton">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/profil">
+            {{user.displayName}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#" (click)="OturumKapat()">Oturumu Kapat</a>
+        </li>
+      </ul>
+
+      <ng-template #loginButton>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="login">Oturum Aç</a>
+          </li>
+        </ul>
+      </ng-template>
+
+    </div>
+  </div>
+</nav>
+<div style="height: 50px;"></div>
+
+<router-outlet>
+</router-outlet>
